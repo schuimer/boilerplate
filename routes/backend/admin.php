@@ -10,3 +10,5 @@ Route::get('dashboard', [DashboardController::class, 'index'])
     ->breadcrumbs(function (Trail $trail) {
         $trail->push(__('Home'), route('admin.dashboard'));
     });
+
+Route::get('/admin/country', 'App\Http\Controllers\backend\CountryController@index')->name('country');

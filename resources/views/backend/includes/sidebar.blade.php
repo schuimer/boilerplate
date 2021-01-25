@@ -96,6 +96,17 @@
                 </ul>
             </li>
         @endif
+
+        @if ($logged_in_user->hasAllAccess())
+        <li class="c-sidebar-nav-item">
+            <x-utils.link
+                class="c-sidebar-nav-link"
+                :href="route('admin.country')"
+                :active="activeClass(Route::is('admin.country'), 'c-active')"
+                icon="c-sidebar-nav-icon cil-list"
+                :text="__('Country')" />
+        </li>
+        @endif
     </ul>
 
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
