@@ -11,4 +11,3 @@ Route::get('dashboard', [DashboardController::class, 'index'])
         $trail->push(__('Home'), route('admin.dashboard'));
     });
 
-Route::get('/admin/country', 'App\Http\Controllers\backend\CountryController@index')->name('country');

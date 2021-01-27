@@ -25,4 +25,6 @@ Route::group(['as' => 'frontend.'], function () {
  */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     includeRouteFiles(__DIR__.'/backend/');
+    Route::resource('country', 'App\Http\Controllers\backend\CountryController');  
+    Route::resource('currency', 'App\Http\Controllers\backend\CurrencyController');  
 });

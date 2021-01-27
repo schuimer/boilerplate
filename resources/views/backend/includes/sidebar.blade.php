@@ -101,10 +101,21 @@
         <li class="c-sidebar-nav-item">
             <x-utils.link
                 class="c-sidebar-nav-link"
-                :href="route('admin.country')"
-                :active="activeClass(Route::is('admin.country'), 'c-active')"
-                icon="c-sidebar-nav-icon cil-list"
+                :href="route('admin.country.index')"
+                :active="activeClass(Route::is('admin.country*'), 'c-active')"
+                icon="c-sidebar-nav-icon cil-map"
                 :text="__('Country')" />
+        </li>
+        @endif
+
+        @if ($logged_in_user->hasAllAccess())
+        <li class="c-sidebar-nav-item">
+            <x-utils.link
+                class="c-sidebar-nav-link"
+                :href="route('admin.currency.index')"
+                :active="activeClass(Route::is('admin.currency*'), 'c-active')"
+                icon="c-sidebar-nav-icon cil-money"
+                :text="__('Currency')" />
         </li>
         @endif
     </ul>
