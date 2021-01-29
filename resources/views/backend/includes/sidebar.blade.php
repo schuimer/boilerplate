@@ -118,6 +118,23 @@
                 :text="__('Currency')" />
         </li>
         @endif
+
+        @if ($logged_in_user->hasAllAccess())
+        @php 
+        $menu = menu_modules();
+        @endphp
+        @foreach($menu as $m)
+          <li class="c-sidebar-nav-item">
+            <x-utils.link
+                class="c-sidebar-nav-link"
+                :href="route($m->getName())"
+                :active="activeClass(Route::is('Channel.*'), 'c-active')"
+                icon="c-sidebar-nav-icon cil-tv"
+                :text="__($m->getName())"  />
+        </li>
+        @endforeach
+        @endif
+
     </ul>
 
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>

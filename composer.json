@@ -23,6 +23,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.0",
+        "nwidart/laravel-menus": "^7.0",
         "nwidart/laravel-modules": "^8.2",
         "rappasoft/laravel-livewire-tables": "^0.3",
         "rappasoft/lockout": "^3.0",
@@ -65,7 +66,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files":[
+             "app/menuhelpers.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
