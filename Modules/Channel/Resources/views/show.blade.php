@@ -7,6 +7,12 @@
         <x-slot name="header">
             @lang('View Channel')
         </x-slot>
+        
+        <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+        </ul> 
 
         <x-slot name="headerActions">
             <x-utils.link class="card-header-action" :href="route('Channel')" :text="__('Back')" />

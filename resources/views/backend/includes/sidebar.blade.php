@@ -128,7 +128,7 @@
             <x-utils.link
                 class="c-sidebar-nav-link"
                 :href="route($m->getName())"
-                :active="activeClass(Route::is('Channel.*'), 'c-active')"
+                :active="activeClass(Route::is($m->getName().'*'), 'c-active')"
                 icon="c-sidebar-nav-icon cil-tv"
                 :text="__($m->getName())"  />
         </li>

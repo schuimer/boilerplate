@@ -5,10 +5,11 @@ use Modules\Channel\Entities\Channel;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-//use Nwidart\Modules\Facades\Module;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class ChannelController extends Controller
 {
+    use ValidatesRequests;
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -36,6 +37,10 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
+       $a = $this->validate($request,[
+            'name' => ['required', 'string', 'max:255','unique:channels'],
+        ]);
+        dd($a);
         $data = $request->all();
         $channel = Channel::create($data);
         return redirect()->route('Channel.show', $channel->id)->withFlashSuccess(__('The channel was successfully added.'));
@@ -71,6 +76,12 @@ class ChannelController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $c = Channel::findorfail($id);
+        $this->validate($request,[
+            'name' => ['required','unique:channels,name,'.$c->id],
+        ]);
+
        Channel::where('id','=', $id)->update([
             'name' => $request->name
         ]);
