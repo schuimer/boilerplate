@@ -37,10 +37,9 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
-       $a = $this->validate($request,[
+       $this->validate($request,[
             'name' => ['required', 'string', 'max:255','unique:channels'],
         ]);
-        dd($a);
         $data = $request->all();
         $channel = Channel::create($data);
         return redirect()->route('Channel.show', $channel->id)->withFlashSuccess(__('The channel was successfully added.'));
@@ -77,15 +76,15 @@ class ChannelController extends Controller
     public function update(Request $request, $id)
     {
 
-        $c = Channel::findorfail($id);
+        $channel = Channel::findorfail($id);
         $this->validate($request,[
-            'name' => ['required','unique:channels,name,'.$c->id],
+            'name' => ['required','unique:channels,name,'.$channel->id],
         ]);
 
        Channel::where('id','=', $id)->update([
             'name' => $request->name
         ]);
-        return redirect()->route('Channel.show', $id)->withFlashSuccess(__('The country was successfully updated.'));
+        return redirect()->route('Channel.show', $id)->withFlashSuccess(__('The channel was successfully updated.'));
     }
 
     /**
@@ -97,6 +96,6 @@ class ChannelController extends Controller
     {
         $channel = Channel::findOrFail($id);
         $channel->delete();
-        return redirect()->back()->withFlashSuccess(__('The country was successfully deleted.'));
+        return redirect()->back()->withFlashSuccess(__('The channel was successfully deleted.'));
     }
 }

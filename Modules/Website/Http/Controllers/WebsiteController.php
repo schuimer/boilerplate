@@ -5,9 +5,13 @@ namespace Modules\Website\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Website\Entities\Website;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class WebsiteController extends Controller
 {
+
+    use ValidatesRequests;
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -33,7 +37,12 @@ class WebsiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => ['required', 'string', 'max:255','unique:websites'],
+        ]);
+        $data = $request->all();
+        $website = Website::create($data);
+        return redirect()->route('Website.show', $website->id)->withFlashSuccess(__('The website was successfully added.'));
     }
 
     /**
@@ -43,7 +52,8 @@ class WebsiteController extends Controller
      */
     public function show($id)
     {
-        return view('website::show');
+        $website = Website::findOrFail($id);
+        return view('website::show')->with(compact('website'));
     }
 
     /**
@@ -53,7 +63,8 @@ class WebsiteController extends Controller
      */
     public function edit($id)
     {
-        return view('website::edit');
+        $website = Website::findOrFail($id);
+        return view('website::edit')->with(compact('website'));
     }
 
     /**
@@ -64,7 +75,15 @@ class WebsiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $website = Website::findorfail($id);
+        $this->validate($request,[
+            'name' => ['required','unique:websites,name,'.$website->id],
+        ]);
+
+       Website::where('id','=', $id)->update([
+            'name' => $request->name
+        ]);
+        return redirect()->route('Website.show', $id)->withFlashSuccess(__('The website was successfully updated.'));
     }
 
     /**
@@ -74,6 +93,8 @@ class WebsiteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $website = Website::findOrFail($id);
+        $website->delete();
+        return redirect()->back()->withFlashSuccess(__('The website was successfully deleted.'));
     }
 }
