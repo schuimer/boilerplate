@@ -43,5 +43,6 @@
     <script src="{{ mix('js/backend.js') }}"></script>
     <livewire:scripts />
     @stack('after-scripts')
+	@yield('custom-scripts')
 </body>
 </html>
